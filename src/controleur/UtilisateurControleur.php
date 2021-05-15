@@ -2,6 +2,7 @@
 
 namespace blogapp\controleur;
 
+use blogapp\modele\Auth;
 use blogapp\vue\UtilisateurVue;
 use blogapp\modele\User;
 
@@ -30,12 +31,26 @@ class UtilisateurControleur {
         $password = filter_var($rq->getParsedBodyParam('password'), FILTER_SANITIZE_STRING);
 
         // Test if password is ok
-        $user = User::where('name', '=', $nom)->first();
-        echo $user->name . ' ' . $user->password;
+        $user = User::getByUsername($nom);
         $good = password_verify($password, $user->password);
 
-        if ($good)
+        if ($good) {
+            // Create cookies
+            $expiration = time() + 3600 * 24 * 7;
+            setcookie("user_login", $nom, $expiration);
+
+            $token = random_bytes(16);
+            setcookie("token", $token, $expiration);
+
+            // Prepare data for the database
+            $token_hash = password_hash($token, PASSWORD_DEFAULT);
+            $expiry_date = date("Y-m-d H:i:s", $expiration);
+
+            // Insert token infos in the database
+            User::createToken($user->id, $token_hash, $expiry_date);
+
             $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
+        }
         else
             $this->cont->flash->addMessage('info', "Wrong password!");
 
@@ -45,13 +60,10 @@ class UtilisateurControleur {
     public function cree($rq, $rs, $args) {
         // Récupération variable POST + nettoyage
         $nom = filter_var($rq->getParsedBodyParam('nom'), FILTER_SANITIZE_STRING);
-        $password = filter_var($rq->getParsedBodyParam('password'), FILTER_SANITIZE_STRING);
+        $password = password_hash(filter_var($rq->getParsedBodyParam('password'), FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
 
         // Insertion dans la base...
-        $user = User::create([
-            'name' => $nom,
-            'password' => password_hash($password, PASSWORD_DEFAULT)
-        ]);
+        User::create($nom, $password);
 
         // Ajout d'un flash
         $this->cont->flash->addMessage('info', "Utilisateur $nom ajouté !");

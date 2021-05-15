@@ -31,6 +31,10 @@ $app = new \Slim\App($configuration);
 
 // Définition des routes
 
+/*
+ * POSTS
+ */
+
 $app->get('/billet/{id}',
           '\blogapp\controleur\BilletControleur:affiche')
     ->setName('billet_aff');
@@ -39,6 +43,10 @@ $app->get('/billets',
           '\blogapp\controleur\BilletControleur:liste')
     ->setName('billet_liste');
 
+
+/*
+ * USERS MANAGEMENT
+ */
 $app->get('/newutil',
           '\blogapp\controleur\UtilisateurControleur:nouveau')
     ->setName('util_nouveau');
