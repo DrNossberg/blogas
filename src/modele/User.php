@@ -25,6 +25,10 @@ class User extends \Illuminate\Database\Eloquent\Model
         return User::where('id', '=', $id)->first();
     }
 
+    public static function getByToken($token) {
+        return User::where('token', '=', $token)->first();
+    }
+
     public static function create($username, $password) {
         $user = new User();
         $user->name = $username;
@@ -39,6 +43,17 @@ class User extends \Illuminate\Database\Eloquent\Model
             $user->expiry_date = $expiry_date;
             $user->save();
         }
+    }
+
+    public static function getToken($id) {
+        return (User::getById($id)->token);
+    }
+
+    public static function getRight($token) {
+        if (!is_null($user = self::getByToken($token)))
+            return $user->user_right;
+        else
+            return -1;
     }
 
 }

@@ -18,7 +18,8 @@ ConnectionFactory::makeConnection('src/conf/conf.ini');
 
 $configuration = [
     'settings' => [
-        'displayErrorDetails' => true
+        'displayErrorDetails' => true,
+        'determineRouteBeforeAppMiddleware' => true
     ],
     'flash' => function() {
         return new \Slim\Flash\Messages();

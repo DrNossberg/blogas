@@ -2,7 +2,7 @@
 
 namespace blogapp\controleur;
 
-use blogapp\modele\Auth;
+use blogapp\Authentification\Auth;
 use blogapp\vue\UtilisateurVue;
 use blogapp\modele\User;
 
@@ -35,20 +35,7 @@ class UtilisateurControleur {
         $good = password_verify($password, $user->password);
 
         if ($good) {
-            // Create cookies
-            $expiration = time() + 3600 * 24 * 7;
-            setcookie("user_login", $nom, $expiration);
-
-            $token = random_bytes(16);
-            setcookie("token", $token, $expiration);
-
-            // Prepare data for the database
-            $token_hash = password_hash($token, PASSWORD_DEFAULT);
-            $expiry_date = date("Y-m-d H:i:s", $expiration);
-
-            // Insert token infos in the database
-            User::createToken($user->id, $token_hash, $expiry_date);
-
+            Auth::authentify($user);
             $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
         }
         else

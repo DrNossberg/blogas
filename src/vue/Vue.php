@@ -2,6 +2,8 @@
 
 namespace blogapp\vue;
 
+use blogapp\Authentification\Auth;
+
 class Vue {
     protected $cont;
     protected $source;
@@ -36,6 +38,16 @@ class Vue {
    </head>
    <body>
 YOP;
+        // Navbar
+        if (Auth::isAuthentified())
+            $res .= <<<NAV
+    <nav>You are authentified</nav>
+NAV;
+        else
+            $res .= <<<NAV
+    <nav>You are not connected</nav>
+NAV;
+
         // Gestion des flashs
         if ($flash) {
             foreach ($flash as $catFlash => $lesFlash) {
