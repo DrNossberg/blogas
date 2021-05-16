@@ -33,19 +33,51 @@ class Vue {
  <html>
    <head>
      <title>Application de Blog !</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
      <link rel="stylesheet" href="{$this->baseURL()}/css/styles.css" type="text/css" />
      <meta charset="utf-8" />
    </head>
    <body>
+
+    <nav class="navbar navbar-expand-md bg-dark">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
 YOP;
         // Navbar
         if (Auth::isAuthentified())
             $res .= <<<NAV
-    <nav>You are authentified</nav>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{url('/login')}">My Account</a>
+        </li>
+    </ul>
 NAV;
         else
             $res .= <<<NAV
-    <nav>You are not connected</nav>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{url('/login')}">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{url('/register')}">Register</a>
+        </li>
+    </ul>
+NAV;
+
+        $res .= <<<NAV
+        </div>
+    </nav>
 NAV;
 
         // Gestion des flashs
