@@ -1,9 +1,9 @@
 <?php
 
-namespace blogapp\vue;
-use blogapp\vue\Vue;
+namespace blogapp\Views;
+use blogapp\Views\View;
 
-class BilletVue extends Vue {
+class PostView extends View {
     const BILLET_VUE = 1;
     const LISTE_VUE = 2;
     
@@ -48,7 +48,7 @@ YOP;
 YOP;
 
             foreach ($this->source as $billet) {
-                $url = $this->cont->router->pathFor('billet_aff', ['id' => $billet->id]);
+                $url = $this->cont->router->pathFor('post_display', ['id' => $billet->id]);
                 $res .= <<<YOP
       <li><a href="$url">{$billet->titre}</a></li>
 YOP;

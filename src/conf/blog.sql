@@ -28,12 +28,16 @@ SET time_zone = "+00:00";
 -- Structure de la table `billets`
 --
 
-CREATE TABLE `billets` (
-  `id` int NOT NULL,
-  `titre` varchar(64) DEFAULT NULL,
-  `body` text,
+CREATE TABLE `posts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL,
+  `body` text NOT NULL,
   `cat_id` int DEFAULT '1',
-  `date` date DEFAULT NULL
+  `date_creation` date NOT NULL,
+  `date_modification` date DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `image` BLOB DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -51,11 +55,56 @@ INSERT INTO `billets` (`id`, `titre`, `body`, `cat_id`, `date`) VALUES
 -- Structure de la table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` int NOT NULL,
-  `titre` varchar(64) NOT NULL,
-  `description` text
+CREATE TABLE `posts` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(64) NOT NULL,
+    `body` text NOT NULL,
+    `cat_id` int DEFAULT '1',
+    `date_creation` date NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modification` date DEFAULT NULL,
+    `user_id` int NOT NULL,
+    `image` BLOB DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `categories` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(64) NOT NULL,
+    `description` text,
+    `image` BLOB DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `comments` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `title` varchar(64) NOT NULL,
+    `body` text NOT NULL,
+    `id_post` int NOT NULL,
+    `date_creation` date NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modification` date DEFAULT NULL,
+    `user_id` int NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `users` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(25) NOT NULL,
+    `surname` varchar(60) NOT NULL,
+    `nickname` varchar(25) NOT NULL UNIQUE,
+    `email` varchar(255) NOT NULL UNIQUE,
+    `password` varchar(60) NOT NULL,
+    `grade` int NOT NULL DEFAULT '1',
+    `date_creation` date NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_deletion` date DEFAULT NULL,
+    `image` BLOB DEFAULT NULL,
+    `signature` text DEFAULT NULL,
+    `token` varchar(60) DEFAULT NULL ,
+    `token_expiry_date` date DEFAULT NULL
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Déchargement des données de la table `categories`
@@ -68,7 +117,7 @@ INSERT INTO `categories` (`id`, `titre`, `description`) VALUES
 (4, 'tele', 'tout sur les programmes tele, les emissions, les series, et vos stars preferes'),
 (8, 'test', 'catégorie de test'),
 (9, 'test', 'catégorie de test'),
-(10, 'test', 'catégorie de test');
+(10, 'test', 'categorie de test');
 
 --
 -- Index pour les tables déchargées

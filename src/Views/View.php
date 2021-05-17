@@ -1,10 +1,10 @@
 <?php
 
-namespace blogapp\vue;
+namespace blogapp\Views;
 
 use blogapp\Authentification\Auth;
 
-class Vue {
+class View {
     protected $cont;
     protected $source;
     protected $selecteur;
@@ -33,9 +33,10 @@ class Vue {
  <html>
    <head>
      <title>Application de Blog !</title>
+     <link rel="stylesheet" href="{$this->baseURL()}/css/styles.css" type="text/css" />
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-     <link rel="stylesheet" href="{$this->baseURL()}/css/styles.css" type="text/css" />
+     <script src="https://kit.fontawesome.com/d4bc26ac37.js" crossorigin="anonymous"></script>
      <meta charset="utf-8" />
    </head>
    <body>
@@ -43,14 +44,8 @@ class Vue {
     <nav class="navbar navbar-expand-md bg-dark">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home </a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="{$this->baseURL()}">Home </a>
                 </li>
             </ul>
 YOP;
@@ -67,10 +62,10 @@ NAV;
             $res .= <<<NAV
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="{url('/login')}">Login</a>
+            <a class="nav-link" href="{$this->baseURL()}/login">Login</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{url('/register')}">Register</a>
+            <a class="nav-link" href="{$this->baseURL()}/register">Register</a>
         </li>
     </ul>
 NAV;
@@ -95,7 +90,9 @@ YOP;
         }
         
         $res .= <<<YOP
-     $cont
+    <div class="container">
+        $cont
+    </div>
    </body>
 </html>
 YOP;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace blogapp\modele;
+namespace blogapp\Models;
 
 
 class User extends \Illuminate\Database\Eloquent\Model
@@ -11,28 +11,35 @@ class User extends \Illuminate\Database\Eloquent\Model
     public $timestamps = false;
 
     protected $fillable = [
-      'name',
-      'password',
-      'token',
-      'expiry_date'
+        'name',
+        'surname',
+        'nickname',
+        'email',
+        'password',
+        'date_deletion',
+        'image',
+        'signature',
+        'token',
+        'token_expiry_date'
     ];
 
-    public static function getByUsername($username) {
-        return User::where('name', '=', $username)->first();
+    public static function getByUsername($nickname) {
+        return User::where('nickname', '=', $nickname)->first();
     }
 
     public static function getById($id) {
         return User::where('id', '=', $id)->first();
     }
 
-    public static function getByToken($token) {
-        return User::where('token', '=', $token)->first();
-    }
-
-    public static function create($username, $password) {
+    public static function create($usr_info) {
         $user = new User();
-        $user->name = $username;
-        $user->password = $password;
+        $user->name = $usr_info['name'];
+        $user->surname = $usr_info['surname'];
+        $user->nickname = $usr_info['nick'];
+        $user->email = $usr_info['email'];
+        $user->password = $usr_info['password'];
+        if ($usr_info['image'] != null)
+            $user->image = $usr_info['image'];
         $user->save();
     }
 
@@ -40,7 +47,7 @@ class User extends \Illuminate\Database\Eloquent\Model
         if (($user = User::getById($id)) != null)
         {
             $user->token = $token;
-            $user->expiry_date = $expiry_date;
+            $user->token_expiry_date = $expiry_date;
             $user->save();
         }
     }
@@ -51,7 +58,7 @@ class User extends \Illuminate\Database\Eloquent\Model
 
     public static function getRight($token) {
         if (!is_null($user = self::getByToken($token)))
-            return $user->user_right;
+            return $user->grade;
         else
             return -1;
     }

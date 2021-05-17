@@ -32,36 +32,45 @@ $app = new \Slim\App($configuration);
 
 // Définition des routes
 
+$app->get('/',
+    '\blogapp\Controllers\PostController:listPosts')
+    ->setName('index');
+
+
 /*
  * POSTS
  */
 
-$app->get('/billet/{id}',
-          '\blogapp\controleur\BilletControleur:affiche')
-    ->setName('billet_aff');
+$app->get('/post/{id}',
+          '\blogapp\Controllers\PostController:displayPost')
+    ->setName('post_display');
 
-$app->get('/billets',
-          '\blogapp\controleur\BilletControleur:liste')
-    ->setName('billet_liste');
+$app->get('/newpost',
+            '\blogapp\Controllers\PostController:createPostForm')
+    ->setName('post_create_form');
+
+$app->post('/createpost',
+            '\blogapp\Controllers\PostController:create')
+    ->setName('post_create');
 
 
 /*
  * USERS MANAGEMENT
  */
-$app->get('/newutil',
-          '\blogapp\controleur\UtilisateurControleur:nouveau')
-    ->setName('util_nouveau');
+$app->get('/register',
+          '\blogapp\Controllers\UserController:createUserForm')
+    ->setName('user_create_form');
 
-$app->post('/createutil',
-          '\blogapp\controleur\UtilisateurControleur:cree')
-    ->setName('util_cree');
+$app->post('/createuser',
+          '\blogapp\Controllers\UserController:create')
+    ->setName('user_create');
 
-$app->get('/connutil',
-    '\blogapp\controleur\UtilisateurControleur:connection')
-    ->setName('util_connection');
+$app->get('/login',
+    '\blogapp\Controllers\UserController:connectionUserForm')
+    ->setName('user_connection_form');
 
 $app->post('/connectutil',
     '\blogapp\controleur\UtilisateurControleur:connect')
-    ->setName('util_connect');
+    ->setName('user_connection');
 
 $app->run();

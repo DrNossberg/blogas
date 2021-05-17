@@ -3,7 +3,7 @@
 
 namespace blogapp\Authentification;
 
-use blogapp\modele\User;
+use blogapp\Models\User;
 
 
 class Auth
@@ -25,8 +25,8 @@ class Auth
     }
 
     public static function isAuthentified() {
-        if (isset($_COOKIE['token']))
-            if (password_verify($_COOKIE['token'], User::getByUsername($_COOKIE['user_login'])->token))
+        if (isset($_COOKIE['token']) && ($user = User::getByUsername($_COOKIE['user_login']) != null))
+            if (password_verify($_COOKIE['token'], $user->token))
                 return true;
 
         return false;
