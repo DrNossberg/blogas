@@ -6,6 +6,7 @@ use blogapp\Views\View;
 class PostView extends View {
     const BILLET_VUE = 1;
     const LISTE_VUE = 2;
+    const CREATE_POST_VUE = 3;
     
     public function render() {
         switch($this->selecteur) {

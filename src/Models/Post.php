@@ -19,6 +19,15 @@ class Post extends \Illuminate\Database\Eloquent\Model {
     public function categorie() {
         return $this->belongsTo('\blogapp\modele\Category', 'cat_id');
     }
+
+    public function getAuthor($id) {
+        return (User::getById($id));
+    }
+
+    public function getComments() {
+        return $this->hasMany('\blogapp\Models\Comment', 'id_post');
+    }
+
 }
 
 ?>

@@ -2,9 +2,22 @@ body {
     background-color: whitesmoke;
 }
 
+.container {
+    margin-top: 2rem;
+}
+
 .card {
     margin-bottom: 1rem;
     box-shadow: 3px 5px 5px -4px rgba(0, 0, 0, 0.25);
+}
+
+.card-info-sub {
+    margin-right: 1rem;
+}
+
+.card-img-top {
+    height: 175px;
+    width: 307px;
 }
 
 div.flash-info {
