@@ -28,6 +28,15 @@ class Post extends \Illuminate\Database\Eloquent\Model {
         return $this->hasMany('\blogapp\Models\Comment', 'id_post');
     }
 
+    public function create($post_info) {
+        $post = new Post();
+        $post->title = $post_info['title'];
+        $post->body = $post_info['body'];
+        $post->cat_id = $post_info['cat'];
+        $post->user_id = User::getByUsername($_SESSION['user_login'])->id;
+        $post->save();
+    }
+
 }
 
 ?>

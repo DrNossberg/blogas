@@ -56,8 +56,8 @@ class User extends \Illuminate\Database\Eloquent\Model
         return (User::getById($id)->token);
     }
 
-    public static function getRight($token) {
-        if (!is_null($user = self::getByToken($token)))
+    public static function getRight($name) {
+        if (!is_null($user = self::getByUsername($name)))
             return $user->grade;
         else
             return -1;

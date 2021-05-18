@@ -1,6 +1,7 @@
 <?php
 
 namespace blogapp\Views;
+use blogapp\Models\Category;
 use blogapp\Models\Comment;
 use blogapp\Models\Post;
 use blogapp\Views\View;
@@ -17,6 +18,9 @@ class PostView extends View {
             break;
         case self::LISTE_VUE:
             $content = $this->liste();
+            break;
+        case self::CREATE_POST_VUE:
+            $content = $this->create();
             break;
         }
         return $this->userPage($content);
@@ -125,6 +129,39 @@ YOP;
         }
         else
             $res = "<h1>Erreur : la liste de billets n'existe pas !</h1>";
+
+        return $res;
+    }
+
+    public function create() {
+        $categories = Category::get();
+        $res = <<<YOP
+        <h1>Création d'un post</h1>
+        <form class="row g-3" method="post" action="{$this->cont['router']->pathFor('post_create')}">
+            <div class="col-md-6">
+                <label for="title" class="form-label">Titre</label>
+                <input type="text" class="form-control" id="title" placeholder="Titre" required name="title">
+            </div>
+            <div class="col-md-12">
+                <label for="body" class="form-label">Corps du message</label>
+                <textarea class="form-control" placeholder="Corps du message" required id="body" name="body" style="height: 520px"></textarea>
+            </div>
+            <div class="col-md-12">
+                <label for="cat" class="form-label">Catégorie du message</label>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="cat" id="cat">
+                  <option selected>Choix de la catégorie</option>
+YOP;
+        foreach ($categories as $category)
+            $res .= "<option value='" . $category->id . "'>" . $category->title . "</option>";
+
+        $res .= <<<YOP
+                </select>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Créer le post</button>
+            </div>
+        </form>
+YOP;
 
         return $res;
     }

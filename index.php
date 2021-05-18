@@ -50,7 +50,7 @@ $app->get('/newpost',
     ->setName('post_create_form');
 
 $app->post('/createpost',
-            '\blogapp\Controllers\PostController:create')
+            '\blogapp\Controllers\PostController:createPost')
     ->setName('post_create');
 
 

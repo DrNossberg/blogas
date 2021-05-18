@@ -54,11 +54,17 @@ YOP;
             $res .= <<<NAV
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="{$this->baseURL()}/disconnect">Se déconnecter</a>
+            <a class="nav-link" href="{$this->baseURL()}/newpost">Créer un post</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{$this->baseURL()}">My Account</a>
-        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Mon compte</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Mon profil</a></li>
+              <li><a class="dropdown-item" href="#">Mes posts</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{$this->baseURL()}/disconnect">Se déconnecter</a></li>
+            </ul>
+         </li>
     </ul>
 NAV;
         else

@@ -33,6 +33,9 @@ class Auth
     }
 
     public static function hasRight($r) {
-        return (self::isAuthentified() && (User::getRight($_SESSION['session']['token']) == $r));
+        if (self::isAuthentified())
+            if (User::getRight($_COOKIE['user_login']) >= $r)
+                return true;
+        return false;
     }
 }

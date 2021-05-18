@@ -66,7 +66,7 @@ YOP;
                 <input type="text" class="form-control" id="nick" placeholder="Pseudo" required name="nick">
             </div>
             <div class="col-md-6">
-                <label for="pass" class="form-label">Mot dfe passe</label>
+                <label for="pass" class="form-label">Mot de passe</label>
                 <input type="password" class="form-control" id="pass" placeholder="1234" required name="pass">
             </div>
             <div class="col-12">
