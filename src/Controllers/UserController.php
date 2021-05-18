@@ -27,19 +27,19 @@ class UserController {
 
     public function connect($rq, $rs, $args) {
         // Get variables POST + cleaning
-        $nom = filter_var($rq->getParsedBodyParam('nom'), FILTER_SANITIZE_STRING);
-        $password = filter_var($rq->getParsedBodyParam('password'), FILTER_SANITIZE_STRING);
+        $nickname = filter_var($rq->getParsedBodyParam('nick'), FILTER_SANITIZE_STRING);
+        $password = filter_var($rq->getParsedBodyParam('pass'), FILTER_SANITIZE_STRING);
 
         // Test if password is ok
-        $user = User::getByUsername($nom);
-        $good = password_verify($password, $user->password);
+        $user = User::getByUsername($nickname);
 
-        if ($good) {
+        if (password_verify($password, $user->password)) {
             Auth::authentify($user);
             $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
         }
-        else
-            $this->cont->flash->addMessage('info', "Wrong password!");
+        else {
+            $this->cont->flash->addMessage('info', "Wrong password! " .$nickname);
+        }
 
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }
@@ -60,6 +60,15 @@ class UserController {
         // Ajout d'un flash
         $this->cont->flash->addMessage('info', "Utilisateur ajouté ! $user");
         // Retour de la réponse avec redirection
+        return $rs->withRedirect($this->cont->router->pathFor('index'));
+    }
+
+    public function disconnect($rq, $rs, $args) {
+        $usr = User::getByUsername($_COOKIE['user_login']);
+        $usr->token = null;
+        $usr->save();
+        $_COOKIE['user_login'] = null;
+        $_COOKIE['token'] = null;
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }
 }

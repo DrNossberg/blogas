@@ -11,7 +11,7 @@ class Auth
     public static function authentify($user) {
         // Create cookies
         $expiration = time() + 3600 * 24 * 7;
-        setcookie("user_login", $user->name, $expiration);
+        setcookie("user_login", $user->nickname, $expiration);
 
         $token = random_bytes(16);
         setcookie("token", $token, $expiration);
@@ -25,7 +25,7 @@ class Auth
     }
 
     public static function isAuthentified() {
-        if (isset($_COOKIE['token']) && ($user = User::getByUsername($_COOKIE['user_login']) != null))
+        if (isset($_COOKIE['token']) && (($user = User::getByUsername($_COOKIE['user_login'])) != null))
             if (password_verify($_COOKIE['token'], $user->token))
                 return true;
 

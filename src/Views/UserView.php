@@ -51,7 +51,7 @@ class UserView extends View {
             </div>
 
             <div class="col-12">
-                <button class="btn btn-primary" type="submit">Submit form</button>
+                <button class="btn btn-primary" type="submit">S'inscrire</button>
             </div>
         </form>
 YOP;
@@ -60,10 +60,18 @@ YOP;
     public function connection() {
         return <<<YOP
         <h1>Connection of user</h1>
-        <form method="post" action="{$this->cont['router']->pathFor('user_connection')}">
-            <input type="text" name="nom">
-            <input type="password" name="password">
-            <input type="submit" value="Sign in">
+        <form class="row g-3" method="post" action="{$this->cont['router']->pathFor('user_connection')}">
+            <div class="col-md-6">
+                <label for="nick" class="form-label">Pseudo</label>
+                <input type="text" class="form-control" id="nick" placeholder="Pseudo" required name="nick">
+            </div>
+            <div class="col-md-6">
+                <label for="pass" class="form-label">Mot dfe passe</label>
+                <input type="password" class="form-control" id="pass" placeholder="1234" required name="pass">
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Se connecter</button>
+            </div>
         </form>
 YOP;
 

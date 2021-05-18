@@ -70,7 +70,11 @@ $app->get('/login',
     ->setName('user_connection_form');
 
 $app->post('/connectutil',
-    '\blogapp\controleur\UtilisateurControleur:connect')
+    '\blogapp\Controllers\UserController:connect')
     ->setName('user_connection');
+
+$app->get('/disconnect',
+    '\blogapp\Controllers\UserController:disconnect')
+    ->setName('user_deconnection');
 
 $app->run();
