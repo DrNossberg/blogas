@@ -20,4 +20,7 @@ class Comment extends Model
         'user_id'
     ];
 
+    public static  function getAuthor($id) {
+        return (User::getById($id));
+    }
 }

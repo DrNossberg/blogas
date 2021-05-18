@@ -6,8 +6,9 @@ body {
     margin-top: 2rem;
 }
 
-.card {
+.post-panel  {
     margin-bottom: 1rem;
+    background-color: white;
     box-shadow: 3px 5px 5px -4px rgba(0, 0, 0, 0.25);
 }
 
@@ -18,6 +19,19 @@ body {
 .card-img-top {
     height: 175px;
     width: 307px;
+}
+
+.post_body {
+    text-align: justify;
+}
+
+.author-panel {
+    min-width: 100px;
+}
+
+.author-pic {
+    height: 170px;
+    width: 180px;
 }
 
 div.flash-info {

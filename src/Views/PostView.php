@@ -1,6 +1,8 @@
 <?php
 
 namespace blogapp\Views;
+use blogapp\Models\Comment;
+use blogapp\Models\Post;
 use blogapp\Views\View;
 
 class PostView extends View {
@@ -24,17 +26,82 @@ class PostView extends View {
         $res = "";
 
         if ($this->source != null) {
-            $res = <<<YOP
-    <h1>Affichage du billet : {$this->source->id}</h1>
-    <h2>Nom : {$this->source->titre}</h2>
-    <ul>
-      <li>Catégorie : {$this->source->categorie->titre}</li>
-      <li>Contenu : {$this->source->body}</li>
-    </ul>
+            $post = $this->source;
+            $usr = Post::getAuthor($post->user_id);
+            $nbComments = $post->getComments()->count();
+            $lastModif = ($post->date_modification != null) ? "Dernière modification : " . $post->date_modification : "";
+            $authorImg = ($usr->image == null) ? '/images/default_post_image.jpg' : $usr->image;
+            $content = <<<YOP
+    <h2 class="title">$post->title</h2>
+    <div class="card-info d-flex" style="margin-bottom: 1rem;">
+        <div class="card-info-sub">
+            <i class="far fa-calendar-alt"></i> Création : $post->date_creation $lastModif
+        </div>
+        <div class="card-info-sub">
+            <i class="far fa-comments"></i> $nbComments comment(s)
+        </div>
+    </div>
+    <div class="post_body">
+        $post->body
+    </div>
 YOP;
+
+            $author = <<<YOP
+    <h3>A propos de l'auteur</h3>
+    <img src="{$this->baseURL()}$authorImg" class="author-pic" alt="...">
+    <h5>$usr->name $usr->surname</h5>
+YOP;
+
+
+        $comments = $post->getComments;
+        $commentsPanel = "";
+        foreach ($comments as $comment) {
+            $commentAuthor = Comment::getAuthor($comment->user_id);
+            $commentLastModif = ($comment->date_modification == null) ? "" : "Dernière modification : " . $comment->date_modification;
+            $commentsPanel .= <<<YOP
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                $comment->title
+              </div>
+              <div class="card-body">
+                <div class="card-info d-flex" style="margin-bottom: 1rem;">
+                    <div class="card-info-sub">
+                        <i class="far fa-user"></i> $commentAuthor->name $commentAuthor->surname
+                    </div>
+                    <div class="card-info-sub">
+                        <i class="far fa-calendar-alt"></i> $post->date_creation $commentLastModif
+                    </div>
+                </div>
+                <p class="card-text">$comment->body</p>
+              </div>
+            </div>
+        </div>
+    </div>
+YOP;
+
         }
-        else
-            $res = "<h1>Erreur : le billet n'existe pas !</h1>";
+        } else {
+            $content = "<h1>Erreur : le billet n'existe pas !</h1>";
+            $author = "";
+            $commentsPanel = "";
+        }
+
+            $res = <<<Yop
+    <div class="row">
+        <div class="post col-md-8 post-panel p-3">
+            $content
+        </div>
+        <div class="col-md-4 author-panel p-3">
+            $author
+        </div>
+    </div>
+
+    <h1>Commentaires</h1>
+    $commentsPanel
+Yop;
+
 
         return $res;
     }

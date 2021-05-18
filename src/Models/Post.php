@@ -17,10 +17,10 @@ class Post extends \Illuminate\Database\Eloquent\Model {
     ];
 
     public function categorie() {
-        return $this->belongsTo('\blogapp\modele\Category', 'cat_id');
+        return $this->belongsTo('\blogapp\Models\Category', 'cat_id');
     }
 
-    public function getAuthor($id) {
+    public static function getAuthor($id) {
         return (User::getById($id));
     }
 

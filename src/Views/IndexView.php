@@ -28,7 +28,7 @@ class IndexView extends View
                 $body = substr($post->body, 0, 300) . "...";
                 $image = ($post->image == null) ? '/images/default_post_image.jpg' : $post->image;
                 $res .= <<<YOP
-    <div class="card p-3" style="height: 23rem;">
+    <div class="card p-3">
         <div class="row card-body d-flex">
             <h3 class="card-title">$post->title</h5>
                 <div class="card-info d-flex" style="margin-bottom: 1rem;">
