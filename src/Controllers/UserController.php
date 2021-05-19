@@ -71,4 +71,14 @@ class UserController {
         $_COOKIE['token'] = null;
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }
+
+    public function manageUsers($rq, $rs, $args) {
+        if (Auth::hasRight(2)) {
+            $users = User::where('grade', "=", "1")->get();
+            $bl = new UserView($this->cont, $users, UserView::MANAGE_VUE);
+            $rs->getBody()->write($bl->render());
+            return $rs;
+        }
+        return $rs->withRedirect($this->cont->router->pathFor('index'));
+    }
 }

@@ -53,6 +53,9 @@ $app->post('/createpost',
             '\blogapp\Controllers\PostController:createPost')
     ->setName('post_create');
 
+$app->post('/createcomment',
+            '\blogapp\Controllers\CommentController:createComment')
+    ->setName('comment_create');
 
 /*
  * USERS MANAGEMENT
@@ -76,5 +79,10 @@ $app->post('/connectutil',
 $app->get('/disconnect',
     '\blogapp\Controllers\UserController:disconnect')
     ->setName('user_deconnection');
+
+$app->get('/manageusers',
+    '\blogapp\Controllers\UserController:manageUsers')
+    ->setName('user_manage');
+
 
 $app->run();

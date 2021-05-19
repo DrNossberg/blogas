@@ -3,6 +3,7 @@
 namespace blogapp\Views;
 
 use blogapp\Authentification\Auth;
+use blogapp\Models\User;
 
 class View {
     protected $cont;
@@ -50,6 +51,19 @@ class View {
             </ul>
 YOP;
         // Navbar
+        if (Auth::isAuthentified() && Auth::hasRight(2))
+            $res .= <<<NAV
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Administration</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{$this->baseURL()}/manageusers">Gérer les utilisateurs</a></li>
+              <li><a class="dropdown-item" href="#">Gérer les catégories</a></li>
+            </ul>
+         </li>
+    </ul>
+NAV;
+
         if (Auth::isAuthentified())
             $res .= <<<NAV
     <ul class="navbar-nav">

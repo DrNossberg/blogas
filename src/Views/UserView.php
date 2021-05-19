@@ -2,11 +2,13 @@
 
 namespace blogapp\Views;
 
+use blogapp\Models\Post;
 use blogapp\Views\View;
 
 class UserView extends View {
     const NOUVEAU_VUE = 1;
     const CONNECTION_VUE = 2;
+    const MANAGE_VUE = 3;
     
     public function render() {
         switch($this->selecteur) {
@@ -15,6 +17,9 @@ class UserView extends View {
             break;
         case self::CONNECTION_VUE:
             $content = $this->connection();
+            break;
+        case self::MANAGE_VUE:
+            $content = $this->manageUsers();
             break;
         }
         return $this->userPage($content);
@@ -76,4 +81,55 @@ YOP;
 YOP;
 
     }
+
+    public function manageUsers() {
+        $res = "";
+
+        if ($this->source != null) {
+            foreach ($this->source as $user) {
+                $nbPosts = $user->getPosts()->count();
+                $nbComments = $user->getComments()->count();
+                $status = ($user->date_deletion != null) ? "Radié depuis le " . $user->date_deletion : "Non radié";
+                $res .= <<<YOP
+    <div class="card p-3">
+        <div class="row card-body d-flex">
+            <div class="col-md-2">
+                <img src="default_post_image.jpg">
+            </div>
+            <div class="col-md-10">
+                <h3 class="card-title">$user->name $user->surname ($user->nickname)</h3>
+                <div class="card-info d-flex" style="margin-bottom: 1rem;">
+                    <div class="card-info-sub">
+                        <i class="far fa-calendar-alt"></i> $user->date_creation
+                    </div>
+                    <div class="card-info-sub">
+                        <i class="far fa-file"></i> $nbPosts post(s)
+                    </div>
+                    <div class="card-info-sub">
+                        <i class="far fa-comments"></i> $nbComments comment(s)
+                    </div>
+                </div>
+                <p class="card-text">$user->mail</p>
+                <p class="card-text">Status : $status</p>
+                <a href="#" class="btn btn-primary bg-dark" style="width: auto;">Radier</a>
+
+            </div>
+        </div>
+    </div>
+YOP;
+            }
+
+        }
+        else
+            $res = <<<YOP
+    <div class="card p-3">
+        <div class="row card-body d-flex">
+            <h3 class="card-title">Aucun utilisateur trouvé</h3>
+        </div>
+    </div>
+YOP;
+
+        return $res;
+    }
+
 }

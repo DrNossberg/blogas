@@ -28,7 +28,7 @@ class Post extends \Illuminate\Database\Eloquent\Model {
         return $this->hasMany('\blogapp\Models\Comment', 'id_post');
     }
 
-    public function create($post_info) {
+    public static function create($post_info) {
         $post = new Post();
         $post->title = $post_info['title'];
         $post->body = $post_info['body'];
