@@ -23,6 +23,14 @@ class User extends \Illuminate\Database\Eloquent\Model
         'token_expiry_date'
     ];
 
+    public function getComments() {
+        return $this->hasMany('\blogapp\Models\Comment', 'user_id');
+    }
+
+    public function getPosts() {
+        return $this->hasMany('\blogapp\Models\Post', 'user_id');
+    }
+
     public static function getByUsername($nickname) {
         return User::where('nickname', '=', $nickname)->first();
     }

@@ -1,6 +1,7 @@
 <?php
 
 namespace blogapp\Views;
+use blogapp\Authentification\Auth;
 use blogapp\Models\Category;
 use blogapp\Models\Comment;
 use blogapp\Models\Post;
@@ -30,6 +31,9 @@ class PostView extends View {
         $res = "";
 
         if ($this->source != null) {
+            /*
+             * POST itself
+             */
             $post = $this->source;
             $usr = Post::getAuthor($post->user_id);
             $nbComments = $post->getComments()->count();
@@ -55,8 +59,29 @@ YOP;
     <img src="{$this->baseURL()}$authorImg" class="author-pic" alt="...">
     <h5>$usr->name $usr->surname</h5>
 YOP;
+        $commentsForm = "";
+        $commentsPanel = "";
 
+        if (Auth::hasRight(1)) {
+            $commentsForm = <<<YOP
+    <form class="row g-3" method="post" action="{$this->cont['router']->pathFor('comment_create', ['id' => $post->id])}">
+        <div class="col-md-8">
+            <div class="col-md-6">
+                <label for="title" class="form-label">Titre</label>
+                <input type="text" class="form-control" id="title" placeholder="Titre" required name="title">
+            </div>
+            <div class="col-md-12">
+                <label for="body" class="form-label">Corps du message</label>
+                <textarea class="form-control" placeholder="Corps du message" required id="body" name="body" style="height: 200px;"></textarea>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Envoyer le commentaire</button>
+            </div>
+        </div>
+    </form>
+YOP;
 
+        }
         $comments = $post->getComments;
         $commentsPanel = "";
         foreach ($comments as $comment) {
@@ -88,6 +113,7 @@ YOP;
         }
         } else {
             $content = "<h1>Erreur : le billet n'existe pas !</h1>";
+            $commentsForm = "";
             $author = "";
             $commentsPanel = "";
         }
@@ -103,6 +129,7 @@ YOP;
     </div>
 
     <h1>Commentaires</h1>
+    $commentsForm
     $commentsPanel
 Yop;
 
