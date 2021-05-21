@@ -40,6 +40,10 @@ $app->get('/',
 /*
  * POSTS
  */
+$app->post('/getposts',
+            '\blogapp\Controllers\PostController:getPosts')
+    ->setName('post_get');
+
 
 $app->get('/post/{id}',
           '\blogapp\Controllers\PostController:displayPost')

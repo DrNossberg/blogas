@@ -10,9 +10,15 @@ use blogapp\Authentification\Auth;
 class IndexView extends View
 {
     const INDEX_VUE = 1;
+    const ADD_VUE = 2;
 
     public function render() {
         $content = $this->displayPosts();
+        switch($this->selecteur) {
+            case self::INDEX_VUE:
+                $content = $this->displayPosts();
+                break;
+        }
 
         return $this->userPage($content);
     }
@@ -21,6 +27,9 @@ class IndexView extends View
         $res = "";
 
         if ($this->source != null) {
+            $res .= <<<YOP
+    <div id="posts">
+YOP;
 
             foreach ($this->source as $post) {
                 if (!Auth::isExpeled($post->user_id)) {
@@ -65,6 +74,15 @@ YOP;
                 }
 
             }
+
+            $res .= <<<YOP
+<div class="row justify-content-center">
+<input type="hidden" id="result_no" value="1">
+<input type="hidden" id="url" value="{$this->baseURL()}">
+<input class="btn btn-primary bg-dark" style="width: auto;" type="button" id="load" value="Afficher plus">
+</div>
+</div>
+YOP;
         }
         else
             $res = "<h1>Erreur : la liste de billets n'existe pas !</h1>";
@@ -72,4 +90,5 @@ YOP;
         return $res;
 
     }
+  
 }

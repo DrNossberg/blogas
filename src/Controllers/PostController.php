@@ -49,10 +49,18 @@ class PostController {
     }
 
     public function listPosts($rq, $rs, $args) {
-        $billets = Post::orderBy('date_creation', 'desc')->get();
+        $billets = Post::orderBy('date_creation', 'desc')->limit(20, 0)->get();
 
         $bl = new IndexView($this->cont, $billets, IndexView::INDEX_VUE);
         $rs->getBody()->write($bl->render());
         return $rs;
+    }
+
+    public function getPosts($rq, $rs, $args) {
+        $no = filter_var($rq->getParsedBodyParam('getresult'), FILTER_SANITIZE_STRING);
+        $posts = Post::orderBy('date_creation', 'desc')->limit(1, $no)->get();
+
+        
+
     }
 }
