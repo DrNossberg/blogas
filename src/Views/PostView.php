@@ -27,7 +27,7 @@ class PostView extends View {
     public function billet() {
         $res = "";
 
-        if ($this->source != null) {
+        if ($this->source != null && !Auth::isExpeled($this->source->user_id)) {
             /*
              * POST itself
              */
@@ -83,30 +83,32 @@ YOP;
         $comments = $post->getComments;
         $commentsPanel = "";
         foreach ($comments as $comment) {
-            $commentAuthor = Comment::getAuthor($comment->user_id);
-            $commentLastModif = ($comment->date_modification == null) ? "" : "Dernière modification : " . $comment->date_modification;
-            $commentsPanel .= <<<YOP
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-              <div class="card-header">
-                $comment->title
-              </div>
-              <div class="card-body">
-                <div class="card-info d-flex" style="margin-bottom: 1rem;">
-                    <div class="card-info-sub">
-                        <i class="far fa-user"></i> $commentAuthor->name $commentAuthor->surname
+            if (!Auth::isExpeled($comment->user_id)) {
+                $commentAuthor = Comment::getAuthor($comment->user_id);
+                $commentLastModif = ($comment->date_modification == null) ? "" : "Dernière modification : " . $comment->date_modification;
+                $commentsPanel .= <<<YOP
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header">
+                    $comment->title
+                  </div>
+                  <div class="card-body">
+                    <div class="card-info d-flex" style="margin-bottom: 1rem;">
+                        <div class="card-info-sub">
+                            <i class="far fa-user"></i> $commentAuthor->name $commentAuthor->surname
+                        </div>
+                        <div class="card-info-sub">
+                            <i class="far fa-calendar-alt"></i> $comment->date_creation $commentLastModif
+                        </div>
                     </div>
-                    <div class="card-info-sub">
-                        <i class="far fa-calendar-alt"></i> $comment->date_creation $commentLastModif
-                    </div>
+                    <p class="card-text">$comment->body</p>
+                  </div>
                 </div>
-                <p class="card-text">$comment->body</p>
-              </div>
             </div>
         </div>
-    </div>
 YOP;
+            }
 
         }
         } else {

@@ -38,4 +38,8 @@ class Auth
                 return true;
         return false;
     }
+
+    public static function isExpeled($id) {
+        return (User::getById($id)->date_deletion != null);
+    }
 }
