@@ -42,7 +42,7 @@ class View {
    </head>
    <body>
 
-    <nav class="navbar navbar-expand-md bg-dark">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
