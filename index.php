@@ -100,4 +100,22 @@ $app->post('/unexpeluser/{id}',
     '\blogapp\Controllers\UserController:unexpel')
     ->setName('user_unexpel');
 
+
+/*
+ * CATEGORIES
+ */
+$app->get('/managecategories',
+    '\blogapp\Controllers\CategoryController:manageCategories')
+    ->setName('cat_manage');
+
+$app->post('/createcategory',
+    '\blogapp\Controllers\CategoryController:create')
+    ->setName('cat_create');
+
+$app->post('/deletecategory/{id}',
+    '\blogapp\Controllers\CategoryController:delete')
+    ->setName('cat_delete');
+
+
+
 $app->run();

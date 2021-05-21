@@ -58,7 +58,7 @@ YOP;
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Administration</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{$this->baseURL()}/manageusers">Gérer les utilisateurs</a></li>
-              <li><a class="dropdown-item" href="#">Gérer les catégories</a></li>
+              <li><a class="dropdown-item" href="{$this->baseURL()}/managecategories">Gérer les catégories</a></li>
             </ul>
          </li>
     </ul>
