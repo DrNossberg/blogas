@@ -58,8 +58,8 @@ CREATE TABLE `comments` (
   `title` varchar(64) NOT NULL,
   `body` text NOT NULL,
   `id_post` int(11) NOT NULL,
-  `date_creation` date NOT NULL DEFAULT current_timestamp(),
-  `date_modification` date DEFAULT NULL,
+  `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modification` datetime DEFAULT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -81,8 +81,8 @@ CREATE TABLE `posts` (
   `title` varchar(64) NOT NULL,
   `body` text NOT NULL,
   `cat_id` int(11) DEFAULT 1,
-  `date_creation` date NOT NULL DEFAULT current_timestamp(),
-  `date_modification` date DEFAULT NULL,
+  `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modification` datetime DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `image` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,8 +109,8 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(60) NOT NULL,
   `grade` int(11) NOT NULL DEFAULT 1,
-  `date_creation` date NOT NULL DEFAULT current_timestamp(),
-  `date_deletion` date DEFAULT NULL,
+  `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_deletion` datetime DEFAULT NULL,
   `image` blob DEFAULT NULL,
   `signature` text DEFAULT NULL,
   `token` varchar(60) DEFAULT NULL,
