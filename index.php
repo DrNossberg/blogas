@@ -53,9 +53,17 @@ $app->post('/createpost',
             '\blogapp\Controllers\PostController:createPost')
     ->setName('post_create');
 
-$app->post('/createcomment',
+    
+    
+/*
+* COMMENTS 
+*/
+$app->post('/createcomment/{id}',
             '\blogapp\Controllers\CommentController:createComment')
     ->setName('comment_create');
+    
+
+
 
 /*
  * USERS MANAGEMENT

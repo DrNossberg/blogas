@@ -28,7 +28,8 @@ class Comment extends Model
         $comment = new Comment();
         $comment->title = $comment_info['title'];
         $comment->body = $comment_info['body'];
-        $comment->user_id = User::getByUsername($_SESSION['user_login'])->id;
+        $comment->user_id = User::getByUsername($_COOKIE['user_login'])->id;
+        $comment->id_post = $comment_info['post_id'];
         $comment->save();
     }
 }

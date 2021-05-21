@@ -17,9 +17,6 @@ class PostView extends View {
         case self::BILLET_VUE:
             $content = $this->billet();
             break;
-        case self::LISTE_VUE:
-            $content = $this->liste();
-            break;
         case self::CREATE_POST_VUE:
             $content = $this->create();
             break;
@@ -64,7 +61,7 @@ YOP;
 
         if (Auth::hasRight(1)) {
             $commentsForm = <<<YOP
-    <form class="row g-3" method="post" action="{$this->cont['router']->pathFor('comment_create', ['id' => $post->id])}">
+    <form class="row g-3" method="post" action="{$this->cont->router->pathFor('comment_create', ['id' => $post->id])}">
         <div class="col-md-8">
             <div class="col-md-6">
                 <label for="title" class="form-label">Titre</label>
@@ -82,6 +79,7 @@ YOP;
 YOP;
 
         }
+
         $comments = $post->getComments;
         $commentsPanel = "";
         foreach ($comments as $comment) {
@@ -100,7 +98,7 @@ YOP;
                         <i class="far fa-user"></i> $commentAuthor->name $commentAuthor->surname
                     </div>
                     <div class="card-info-sub">
-                        <i class="far fa-calendar-alt"></i> $post->date_creation $commentLastModif
+                        <i class="far fa-calendar-alt"></i> $comment->date_creation $commentLastModif
                     </div>
                 </div>
                 <p class="card-text">$comment->body</p>
@@ -133,29 +131,6 @@ YOP;
     $commentsPanel
 Yop;
 
-
-        return $res;
-    }
-
-    public function liste() {
-        $res = "";
-        
-        if ($this->source != null) {
-            $res = <<<YOP
-    <h1>Affichage de la liste des billets</h1>
-    <ul>
-YOP;
-
-            foreach ($this->source as $billet) {
-                $url = $this->cont->router->pathFor('post_display', ['id' => $billet->id]);
-                $res .= <<<YOP
-      <li><a href="$url">{$billet->titre}</a></li>
-YOP;
-            }
-            $res .= "</ul>";
-        }
-        else
-            $res = "<h1>Erreur : la liste de billets n'existe pas !</h1>";
 
         return $res;
     }
