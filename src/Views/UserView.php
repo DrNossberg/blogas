@@ -111,8 +111,20 @@ YOP;
                 </div>
                 <p class="card-text">$user->mail</p>
                 <p class="card-text">Status : $status</p>
-                <a href="#" class="btn btn-primary bg-dark" style="width: auto;">Radier</a>
+YOP;
+                if ($user->date_deletion == null)
+                    $res .= <<<YOP
+                <form method="post" action="{$this->cont->router->pathFor('user_expel', ['id' => $user->id])}">
+                    <button class="btn btn-primary bg-dark" type="submit">Radier</button>
+YOP;
+                else
+                    $res .= <<<YOP
+                <form method="post" action="{$this->cont->router->pathFor('user_unexpel', ['id' => $user->id])}">
+                    <button class="btn btn-primary bg-dark" type="submit">Dé-radier</button>
+YOP;
 
+
+                $res .= <<<YOP
             </div>
         </div>
     </div>

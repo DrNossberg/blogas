@@ -81,4 +81,14 @@ class UserController {
         }
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }
+
+    public function expel($rq, $rs, $args) {
+        User::expel($args['id']);
+        return $rs->withRedirect($this->cont->router->pathFor('user_manage'));
+    }
+
+    public function unexpel($rq, $rs, $args) {
+        User::unexpel($args['id']);
+        return $rs->withRedirect($this->cont->router->pathFor('user_manage'));
+    }
 }

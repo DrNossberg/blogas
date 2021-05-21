@@ -71,4 +71,19 @@ class User extends \Illuminate\Database\Eloquent\Model
             return -1;
     }
 
+
+    public static function expel($id) {
+        if (($user = User::getById($id)) != null) {
+            $user->date_deletion = date('Y-m-d H:i:s');
+            $user->save();
+        }
+    }
+
+    public static function unexpel($id) {
+        if (($user = User::getById($id)) != null) {
+            $user->date_deletion = null;
+            $user->save();
+        }
+    }
+
 }

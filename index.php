@@ -92,5 +92,12 @@ $app->get('/manageusers',
     '\blogapp\Controllers\UserController:manageUsers')
     ->setName('user_manage');
 
+$app->post('/expeluser/{id}',
+    '\blogapp\Controllers\UserController:expel')
+    ->setName('user_expel');
+
+$app->post('/unexpeluser/{id}',
+    '\blogapp\Controllers\UserController:unexpel')
+    ->setName('user_unexpel');
 
 $app->run();
