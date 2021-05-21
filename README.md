@@ -35,7 +35,10 @@ collation=utf8_unicode_ci
 
 * Home page with 20 last posts (pagination button exists but doesn not work)
 * Registering of a new member: it verifies if nickname and email are not already existing
-* Connexion of a member (remember session for 7 days, works on one browser at the time), you can also disconnect manually
+* Connexion of a member
+⋅⋅⋅ The connexion can be made with nickanme or email
+⋅⋅⋅ Remember the session for 7 days, works on one browser at the time
+* Manual disconnexion of a connected user
 * Display of a complete post with its comments
 * Entry of a new post (members and admins only)
 * Entry of a new comment on a post (members and admins only)
@@ -48,3 +51,12 @@ Admin panel (for admins only):
 * Possibility to expel a member (and unexpel): when expeled, a member cannot connect and their posts / comments are not shown
 ⋅⋅⋅ For some reasons expeling a member sometimes bugs and another member is expeled (May be odds be ever in your favor)
 
+
+
+## Users already in the database with different status :
+
+Users | Status | Nickname | E-mail | Password
+--- | --- | --- | --- | ---
+Donatien De Montazac | Admin | donaThe100 | donation.montazac@montazactorrez.com | 1234
+Fabien Torrez | Member | foubMoutMout | fabien.torrez@montazactorrez.com | 1234
+Antoine Croute | Expeled member | superBisou | antoine.croute@montazactorrez.com | 1234 
