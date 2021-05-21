@@ -65,7 +65,7 @@ YOP;
 
         if (Auth::hasRight(1)) {
             $commentsForm = <<<YOP
-    <form class="row g-3" method="post" action="{$this->cont->router->pathFor('comment_create', ['id' => $post->id])}">
+    <form class="row g-3 full_form p-3 col-md-8 rounded" method="post" action="{$this->cont->router->pathFor('comment_create', ['id' => $post->id])}">
         <div class="col-md-8">
             <div class="col-md-6">
                 <label for="title" class="form-label">Titre</label>
@@ -76,7 +76,7 @@ YOP;
                 <textarea class="form-control" placeholder="Corps du message" required id="body" name="body" style="height: 200px;"></textarea>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary" type="submit">Envoyer le commentaire</button>
+                <button class="btn btn-primary bg-dark" type="submit">Envoyer le commentaire</button>
             </div>
         </div>
     </form>
