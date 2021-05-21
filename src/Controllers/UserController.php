@@ -39,10 +39,10 @@ class UserController {
                 $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
             }
             else
-                $this->cont->flash->addMessage('info', "Mauvais mot de passe");
+                $this->cont->flash->addMessage('error', "Mauvais mot de passe");
         }
         else
-            $this->cont->flash->addMessage('info', "Impossible de se connecter : l'utilisateur a été radié ! ");
+            $this->cont->flash->addMessage('error', "Impossible de se connecter : l'utilisateur a été radié ! ");
 
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }
