@@ -17,7 +17,6 @@ class User extends \Illuminate\Database\Eloquent\Model
         'email',
         'password',
         'date_deletion',
-        'image',
         'signature',
         'token',
         'token_expiry_date'
@@ -50,8 +49,6 @@ class User extends \Illuminate\Database\Eloquent\Model
         $user->nickname = $usr_info['nick'];
         $user->email = $usr_info['email'];
         $user->password = $usr_info['password'];
-        if ($usr_info['image'] != null)
-            $user->image = $usr_info['image'];
         $user->save();
     }
 

@@ -37,7 +37,6 @@ YOP;
                     $usr = Post::getAuthor($post->user_id);
                     $nbComments = $post->getComments()->count();
                     $body = substr($post->body, 0, 300) . "...";
-                    $image = ($post->image == null) ? '/images/default_post_image.jpg' : $post->image;
                     $category = $post->categorie->title;
                     $res .= <<<YOP
         <div class="card p-3 shadow">
@@ -57,10 +56,7 @@ YOP;
                             <i class="far fa-folder-open"></i> $category
                         </div>
                     </div>
-                <div class="col">
-                    <img src="{$this->baseURL()}$image" class="card-img-top" alt="...">
-                </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="row" style="height: 80%;">
                         <p class="card-text m-8">$body</p>
                     </div>

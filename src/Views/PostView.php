@@ -35,7 +35,6 @@ class PostView extends View {
             $usr = Post::getAuthor($post->user_id);
             $nbComments = $post->getComments()->count();
             $lastModif = ($post->date_modification != null) ? "Dernière modification : " . $post->date_modification : "";
-            $authorImg = ($usr->image == null) ? '/images/default_post_image.jpg' : $usr->image;
             $category = $post->categorie->title;
             $content = <<<YOP
     <h2 class="title">$post->title</h2>
@@ -56,8 +55,7 @@ class PostView extends View {
 YOP;
 
             $author = <<<YOP
-    <h3>A propos de l'auteur</h3>
-    <img src="{$this->baseURL()}$authorImg" class="author-pic" alt="...">
+    <h3>L'auteur</h3>
     <h5>$usr->name $usr->surname</h5>
 YOP;
         $commentsForm = "";

@@ -13,7 +13,6 @@ class Post extends \Illuminate\Database\Eloquent\Model {
         'cat_id',
         'date_modification',
         'user_id',
-        'image'
     ];
 
     public function categorie() {

@@ -49,11 +49,6 @@ class UserView extends View {
                 <label for="password" class="form-label">Mot de passe</label>
                 <input type="password" class="form-control" id="password" placeholder="1234" required name="password">
             </div>
-            <div class="col-md-12">
-                <label for="image" class="form-label">Image de profil</label>
-                <input type="file" class="form-control" id="image" aria-label="file example" name="image">
-                <div class="invalid-feedback">Example invalid form file feedback</div>
-            </div>
 
             <div class="col-12">
                 <button class="btn btn-primary bg-dark" type="submit">S'inscrire</button>
@@ -93,10 +88,7 @@ YOP;
                 $res .= <<<YOP
     <div class="card p-3">
         <div class="row card-body d-flex">
-            <div class="col-md-2">
-                <img src="default_post_image.jpg">
-            </div>
-            <div class="col-md-10">
+            <div>
                 <h3 class="card-title">$user->name $user->surname ($user->nickname)</h3>
                 <div class="card-info d-flex" style="margin-bottom: 1rem;">
                     <div class="card-info-sub">
