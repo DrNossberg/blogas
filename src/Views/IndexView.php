@@ -29,6 +29,7 @@ class IndexView extends View
                     $nbComments = $post->getComments()->count();
                     $body = substr($post->body, 0, 300) . "...";
                     $image = ($post->image == null) ? '/images/default_post_image.jpg' : $post->image;
+                    $category = $post->categorie->title;
                     $res .= <<<YOP
         <div class="card p-3">
             <div class="row card-body d-flex">
@@ -42,6 +43,9 @@ class IndexView extends View
                         </div>
                         <div class="card-info-sub">
                             <i class="far fa-comments"></i> $nbComments comment(s)
+                        </div>
+                        <div class="card-info-sub">
+                            <i class="far fa-folder-open"></i> $category
                         </div>
                     </div>
                 <div class="col">

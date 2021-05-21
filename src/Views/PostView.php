@@ -36,6 +36,7 @@ class PostView extends View {
             $nbComments = $post->getComments()->count();
             $lastModif = ($post->date_modification != null) ? "Dernière modification : " . $post->date_modification : "";
             $authorImg = ($usr->image == null) ? '/images/default_post_image.jpg' : $usr->image;
+            $category = $post->categorie->title;
             $content = <<<YOP
     <h2 class="title">$post->title</h2>
     <div class="card-info d-flex" style="margin-bottom: 1rem;">
@@ -44,6 +45,9 @@ class PostView extends View {
         </div>
         <div class="card-info-sub">
             <i class="far fa-comments"></i> $nbComments comment(s)
+        </div>
+        <div class="card-info-sub">
+            <i class="far fa-folder-open"></i> $category
         </div>
     </div>
     <div class="post_body">
