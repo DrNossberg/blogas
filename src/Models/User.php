@@ -52,6 +52,10 @@ class User extends \Illuminate\Database\Eloquent\Model
         $user->save();
     }
 
+    public static function isNickSent($str) {
+        return (User::getByUsername($str) != null);
+    }
+
     public static function createToken($id, $token, $expiry_date) {
         if (($user = User::getById($id)) != null)
         {

@@ -31,7 +31,15 @@ class UserController {
         $password = filter_var($rq->getParsedBodyParam('pass'), FILTER_SANITIZE_STRING);
 
         // Test if password is ok
-        $user = User::getByUsername($nickname);
+        if (User::isNickSent($nickname))
+            $user = User::getByUsername($nickname);
+        else
+            $user = User::getByMail($nickname);
+
+        if ($user == null) {
+            $this->cont->flash->addMessage('error', "Utilisateur inconnu au bataillon");
+            return $rs->withRedirect($this->cont->router->pathFor('index'));
+        }
 
         if (!Auth::isExpeled($user->id)) {
             if (password_verify($password, $user->password)) {

@@ -62,7 +62,7 @@ YOP;
         <form class="row g-3 full_form p-3 rounded shadow" method="post" action="{$this->cont['router']->pathFor('user_connection')}">
             <h1>Connection of user</h1>
             <div class="col-md-6">
-                <label for="nick" class="form-label">Pseudo</label>
+                <label for="nick" class="form-label">Pseudo / Email</label>
                 <input type="text" class="form-control" id="nick" placeholder="Pseudo" required name="nick">
             </div>
             <div class="col-md-6">
