@@ -28,6 +28,11 @@ class CategoryController
             'desc' => filter_var($rq->getParsedBodyParam('desc'), FILTER_SANITIZE_STRING)
         ];
 
+        if (Category::getByTitle($cat['title']) != null) {
+            $this->cont->flash->addMessage('error', "Une catégorie avec ce nom existe déjà...");
+            return $rs->withRedirect($this->cont->router->pathFor('cat_manage'));
+        }
+
         Category::create($cat);
 
         // Ajout d'un flash

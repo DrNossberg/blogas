@@ -16,6 +16,10 @@ class Category extends \Illuminate\Database\Eloquent\Model {
         return $this->hasMany('\blogapp\Models\Post', 'cat_id');
     }
 
+    public static function getByTitle($title) {
+        return Category::where('title', '=', $title)->first();
+    }
+
     public static function create($cat_info) {
         $cat = new Category();
         $cat->title = $cat_info['title'];
