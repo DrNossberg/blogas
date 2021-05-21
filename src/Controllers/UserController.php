@@ -54,14 +54,24 @@ class UserController {
             'surname' => filter_var($rq->getParsedBodyParam('surname'), FILTER_SANITIZE_STRING),
             'nick' => filter_var($rq->getParsedBodyParam('nickname'), FILTER_SANITIZE_STRING),
             'email' => filter_var($rq->getParsedBodyParam('mail'), FILTER_SANITIZE_STRING),
-            'password' => password_hash(filter_var($rq->getParsedBodyParam('password'), FILTER_SANITIZE_STRING), PASSWORD_DEFAULT),
+            'password' => password_hash(filter_var($rq->getParsedBodyParam('password'), FILTER_SANITIZE_STRING), PASSWORD_DEFAULT)
         ];
+
+        if (User::getByUsername($user['nick']) != null) {
+            $this->cont->flash->addMessage('error', "Ce pseudo est déjà utilisé...");
+            return $rs->withRedirect($this->cont->router->pathFor('user_create_form'));
+        }
+
+        if (User::getByMail($user['email']) != null) {
+            $this->cont->flash->addMessage('error', "Cet email est déjà utilisé...");
+            return $rs->withRedirect($this->cont->router->pathFor('user_create_form'));
+        }
 
         // Insertion dans la base...
         User::create($user);
 
         // Ajout d'un flash
-        $this->cont->flash->addMessage('info', "Utilisateur ajouté ! $user");
+        $this->cont->flash->addMessage('info', "Utilisateur ajouté !");
         // Retour de la réponse avec redirection
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }

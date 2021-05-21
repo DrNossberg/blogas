@@ -35,6 +35,10 @@ class User extends \Illuminate\Database\Eloquent\Model
         return User::where('nickname', '=', $nickname)->first();
     }
 
+    public static function getByMail($mail) {
+        return User::where('email', '=', $mail)->first();
+    }
+
     public static function getById($id) {
         return User::where('id', '=', $id)->first();
     }
