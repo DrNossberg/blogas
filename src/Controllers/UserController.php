@@ -33,13 +33,16 @@ class UserController {
         // Test if password is ok
         $user = User::getByUsername($nickname);
 
-        if (password_verify($password, $user->password)) {
-            Auth::authentify($user);
-            $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
+        if (!Auth::isExpeled($user->id)) {
+            if (password_verify($password, $user->password)) {
+                Auth::authentify($user);
+                $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
+            }
+            else
+                $this->cont->flash->addMessage('info', "Mauvais mot de passe");
         }
-        else {
-            $this->cont->flash->addMessage('info', "Wrong password! " .$nickname);
-        }
+        else
+            $this->cont->flash->addMessage('info', "Impossible de se connecter : l'utilisateur a été radié ! ");
 
         return $rs->withRedirect($this->cont->router->pathFor('index'));
     }
