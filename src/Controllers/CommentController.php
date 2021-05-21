@@ -24,6 +24,6 @@ class CommentController
 
         $this->cont->flash->addMessage('info', "Commentaire créé !");
         // Retour de la réponse avec redirection
-        return $rs->withRedirect($this->cont->router->pathFor('post', ['id' => $post_id]));
+        return $rs->withRedirect($this->cont->router->pathFor('post_display', ['id' => $post_id]));
     }
 }
