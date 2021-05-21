@@ -38,7 +38,7 @@ class UserController {
 
         if ($user == null) {
             $this->cont->flash->addMessage('error', "Utilisateur inconnu au bataillon");
-            return $rs->withRedirect($this->cont->router->pathFor('index'));
+            return $rs->withRedirect($this->cont->router->pathFor('user_connection_form'));
         }
 
         if (!Auth::isExpeled($user->id)) {
@@ -48,6 +48,7 @@ class UserController {
             }
             else
                 $this->cont->flash->addMessage('error', "Mauvais mot de passe");
+                return $rs->withRedirect($this->cont->router->pathFor('user_connection_form'));
         }
         else
             $this->cont->flash->addMessage('error', "Impossible de se connecter : l'utilisateur a été radié ! ");
