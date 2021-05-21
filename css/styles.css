@@ -46,7 +46,7 @@ form {
     margin-right: 2rem;
 }
 
-.card-text {
+.card_cat .card-text {
     min-height: 72px;
 }
 

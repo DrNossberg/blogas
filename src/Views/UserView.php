@@ -109,7 +109,7 @@ YOP;
                         <i class="far fa-comments"></i> $nbComments comment(s)
                     </div>
                 </div>
-                <p class="card-text">$user->mail</p>
+                <p class="card-text">$user->email</p>
                 <p class="card-text">Status : $status</p>
 YOP;
                 if ($user->date_deletion == null)

@@ -77,7 +77,7 @@ class UserController {
 
     public function manageUsers($rq, $rs, $args) {
         if (Auth::hasRight(2)) {
-            $users = User::where('grade', "=", "1")->get();
+            $users = User::where('grade', "=", "1")->orderBy('name', 'asc')->get();
             $bl = new UserView($this->cont, $users, UserView::MANAGE_VUE);
             $rs->getBody()->write($bl->render());
             return $rs;
