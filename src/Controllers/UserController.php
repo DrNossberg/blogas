@@ -45,6 +45,7 @@ class UserController {
             if (password_verify($password, $user->password)) {
                 Auth::authentify($user);
                 $this->cont->flash->addMessage('info', "Utilisateur $user->name connecté !");
+                return $rs->withRedirect($this->cont->router->pathFor('index'));
             }
             else
                 $this->cont->flash->addMessage('error', "Mauvais mot de passe");

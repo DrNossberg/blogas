@@ -46,7 +46,7 @@ class View {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{$this->baseURL()}">Accueil</a>
+                    <a class="nav-link" href="{$this->baseURL()}/">Accueil</a>
                 </li>
             </ul>
 YOP;
